@@ -1,20 +1,22 @@
 module "labels" {
-  source      = "git::https://github.com/opsstation/terraform-azure-labels.git?ref=v1.0.0"
+  source      = "opsstation/labels/multicloud"
+  version     = "1.0.0"
   name        = var.name
   environment = var.environment
+  repository  = var.repository
   managedby   = var.managedby
   label_order = var.label_order
-  repository  = var.repository
+  attributes  = var.attributes
 }
 
 resource "azurerm_public_ip" "pip" {
   count               = var.create_public_ip ? 1 : 0
-  allocation_method   = "Static"
+  allocation_method   = var.public_ip_allocation_method
   location            = var.location
   name                = format("%s-nat-gateway-ip", module.labels.id)
   resource_group_name = var.resource_group_name
   zones               = var.public_ip_zones
-  sku                 = "Standard"
+  sku                 = var.public_ip_sku
   tags                = module.labels.tags
 
 }
@@ -24,7 +26,7 @@ resource "azurerm_nat_gateway" "natgw" {
   location                = var.location
   name                    = format("%s-nat-gateway", module.labels.id)
   resource_group_name     = var.resource_group_name
-  sku_name                = "Standard"
+  sku_name                = var.nat_gateway_sku_name
   idle_timeout_in_minutes = var.nat_gateway_idle_timeout
   tags                    = module.labels.tags
 }

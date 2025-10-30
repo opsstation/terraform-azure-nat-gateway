@@ -48,20 +48,20 @@ Replace **MIT** and **OpsStation** with the appropriate license and your informa
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.9 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.28.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.13.3 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >=4.50.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.28.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >=4.50.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/opsstation/terraform-azure-labels.git | v1.0.0 |
+| <a name="module_labels"></a> [labels](#module\_labels) | opsstation/labels/multicloud | 1.0.0 |
 
 ## Resources
 
@@ -77,6 +77,7 @@ Replace **MIT** and **OpsStation** with the appropriate license and your informa
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`). | `list(string)` | `[]` | no |
 | <a name="input_azurerm_subnet_nat_gateway_association_enabled"></a> [azurerm\_subnet\_nat\_gateway\_association\_enabled](#input\_azurerm\_subnet\_nat\_gateway\_association\_enabled) | n/a | `bool` | `true` | no |
 | <a name="input_create_nat_gateway"></a> [create\_nat\_gateway](#input\_create\_nat\_gateway) | n/a | `bool` | `true` | no |
 | <a name="input_create_public_ip"></a> [create\_public\_ip](#input\_create\_public\_ip) | Should we create a public IP or not? | `bool` | `true` | no |
@@ -84,12 +85,15 @@ Replace **MIT** and **OpsStation** with the appropriate license and your informa
 | <a name="input_environment"></a> [environment](#input\_environment) | Project environment | `string` | `""` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | Label order, e.g. sequence of application name and environment `name`,`environment`,'attribute' [`webserver`,`qa`,`devops`,`public`,] . | `list(any)` | <pre>[<br>  "name",<br>  "environment"<br>]</pre> | no |
 | <a name="input_location"></a> [location](#input\_location) | Azure region to use | `string` | `""` | no |
-| <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'opsstation'. | `string` | `""` | no |
+| <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'opsstation'. | `string` | `"opsstation"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name  (e.g. `app` or `cluster`). | `string` | `""` | no |
 | <a name="input_nat_gateway_idle_timeout"></a> [nat\_gateway\_idle\_timeout](#input\_nat\_gateway\_idle\_timeout) | Idle timeout configuration in minutes for Nat Gateway | `number` | `4` | no |
+| <a name="input_nat_gateway_sku_name"></a> [nat\_gateway\_sku\_name](#input\_nat\_gateway\_sku\_name) | Specifies the SKU of the NAT Gateway resource. Currently, only 'Standard' is supported. | `string` | `"Standard"` | no |
+| <a name="input_public_ip_allocation_method"></a> [public\_ip\_allocation\_method](#input\_public\_ip\_allocation\_method) | Defines how the Public IP address is allocated. Must be 'Static' when used with a NAT Gateway. | `string` | `"Static"` | no |
 | <a name="input_public_ip_ids"></a> [public\_ip\_ids](#input\_public\_ip\_ids) | List of public ips to use. Create one ip if not provided | `list(string)` | `[]` | no |
+| <a name="input_public_ip_sku"></a> [public\_ip\_sku](#input\_public\_ip\_sku) | Specifies the SKU tier for the Public IP address used by the NAT Gateway. Must be 'Standard' for NAT Gateway compatibility. | `string` | `"Standard"` | no |
 | <a name="input_public_ip_zones"></a> [public\_ip\_zones](#input\_public\_ip\_zones) | Public ip Zones to configure. | `list(string)` | `null` | no |
-| <a name="input_repository"></a> [repository](#input\_repository) | Terraform current module repo | `string` | `"opsstation"` | no |
+| <a name="input_repository"></a> [repository](#input\_repository) | Terraform current module repo | `string` | `"https://github.com/opsstation/terraform-azure-nat-gateway.git"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name of the resource group to use | `string` | `""` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Ids of subnets to associate with the Nat Gateway | `string` | `""` | no |
 
