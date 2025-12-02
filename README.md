@@ -23,7 +23,7 @@ for creating AZURE resources, and you can customize the inputs as needed. Below 
 ```hcl
 module "nat_gateway" {
   depends_on          = [module.resource_group, module.vnet]
-  source              = "git::https://github.com/opsstation/terraform-azure-nat-gateway.git?ref=v1.0.0"
+  source              = "git::https://github.com/opsstation/terraform-azure-nat-gateway.git?ref=v1.0.1"
   name                = "app"
   environment         = "test"
   location            = module.resource_group.resource_group_location
