@@ -1,7 +1,13 @@
 variable "repository" {
   type        = string
-  default     = "opsstation"
+  default     = "https://github.com/opsstation/terraform-azure-nat-gateway.git"
   description = "Terraform current module repo"
+
+  validation {
+    # regex(...) fails if it cannot find a match
+    condition     = can(regex("^https://", var.repository))
+    error_message = "The module-repo value must be a valid Git repo link."
+  }
 }
 
 variable "label_order" {
@@ -12,7 +18,7 @@ variable "label_order" {
 
 variable "managedby" {
   type        = string
-  default     = ""
+  default     = "opsstation"
   description = "ManagedBy, eg 'opsstation'."
 }
 
@@ -83,4 +89,27 @@ variable "azurerm_subnet_nat_gateway_association_enabled" {
 variable "enabled" {
   type    = bool
   default = true
+}
+
+variable "public_ip_sku" {
+  type        = string
+  default     = "Standard"
+  description = "Specifies the SKU tier for the Public IP address used by the NAT Gateway. Must be 'Standard' for NAT Gateway compatibility."
+}
+
+variable "nat_gateway_sku_name" {
+  type        = string
+  default     = "Standard"
+  description = "Specifies the SKU of the NAT Gateway resource. Currently, only 'Standard' is supported."
+}
+variable "public_ip_allocation_method" {
+  type        = string
+  default     = "Static"
+  description = "Defines how the Public IP address is allocated. Must be 'Static' when used with a NAT Gateway."
+}
+
+variable "attributes" {
+  type        = list(string)
+  default     = []
+  description = "Additional attributes (e.g. `1`)."
 }
